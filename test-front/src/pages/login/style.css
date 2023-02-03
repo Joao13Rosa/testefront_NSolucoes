@@ -1,0 +1,52 @@
+main {
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+}
+
+section {
+  display: flex;
+  height: 400px;
+}
+
+.div-form {
+  height: 25rem;
+  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: first baseline;
+  align-items: center;
+}
+
+.img-logo {
+  height: 5rem;
+  width: 15rem;
+  margin-bottom: 3rem;
+  margin-top: 3rem;
+}
+
+.img-fundo {
+  height: 25rem;
+  border-radius: 0px 4px 4px 0px;
+}
+
+.img-pc {
+  height: 20rem;
+  margin-left: -22rem;
+}
+
+.img-olho {
+  position: absolute;
+  height: 20px;
+  margin-left: -25rem;
+  margin-top: 17.1rem;
+}
+
+.div_aside {
+  height: 10rem;
+}
+
+.img-olho:hover {
+  cursor: pointer;
+  border: 1px solid black;
+}
