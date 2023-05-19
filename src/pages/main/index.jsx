@@ -1,47 +1,92 @@
+import React, { useState, useEffect } from "react";
 import "./style.css";
-import Logo from "../../images/LogoTropa.png";
-import { list } from "../../database";
 
-function Main() {
+const UserPage = () => {
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editMode, setEditMode] = useState(false);
+
+  useEffect(() => {
+    // Simulação de requisição para obter a lista de usuários
+    fetch("/api/users")
+      .then((response) => response.json())
+      .then((data) => setUsers(data));
+  }, []);
+
+  const handleSelectUser = (user) => {
+    setSelectedUser(user);
+    setEditMode(false);
+  };
+
+  /* const handleEditUser = () => {
+    setEditMode(true);
+  }; */
+
+  /* const handleDeleteUser = () => {
+    // Simulação de requisição para excluir o usuário
+    fetch(`/api/users/${selectedUser.id}`, { method: "DELETE" }).then(() => {
+      // Atualizar a lista de usuários após a exclusão
+      const updatedUsers = users.filter((user) => user.id !== selectedUser.id);
+      setUsers(updatedUsers);
+      setSelectedUser(null);
+      setEditMode(false);
+    });
+  }; */
+
+  /* const handleSaveUser = (updatedUser) => {
+    // Simulação de requisição para atualizar o usuário
+    fetch(`/api/users/${selectedUser.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(updatedUser),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      // Atualizar a lista de usuários após a edição
+      const updatedUsers = users.map((user) =>
+        user.id === selectedUser.id ? updatedUser : user
+      );
+      setUsers(updatedUsers);
+      setSelectedUser(updatedUser);
+      setEditMode(false);
+    });
+  }; */
+
   return (
-    <main className="main-main">
-      <aside>
-        <img src={Logo} alt="" className="img-logo" />
-        <div className="div-button">
-          <p>Início</p>
-        </div>
-        <div className="div-button">
-          <p>Contatos</p>
-        </div>
-        <div className="div-button">
-          <p>Relatórios</p>
-        </div>
-        <div className="div-button">
-          <p>Contatos</p>
-        </div>
-        <div className="div-button">
-          <p>Contatos</p>
-        </div>
-        <div className="div-button">
-          <p>Contatos</p>
-        </div>
-      </aside>
-      <section className="section-main">
-        <h1>
-          Olá <span className="span-user">Usuário</span>
-        </h1>
-        <ul>
-          {list.map((elem, index) => (
-            <li key={index}>
-              <img src={elem.img} alt="" className="img-list" />
-              <h2 className="h2-title">{elem.title}</h2>
-              <p className="p-description">{elem.description}</p>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </main>
-  );
-}
+    <div className="div-geral">
+      <h1>Listagem de Usuários</h1>
+      <div className="div-buttons">
+        <button className="button-add">+</button>
+        <input type="text" placeholder="Busca" />
+        <button className="button-search">Buscar</button>
+      </div>
 
-export default Main;
+      <ul>
+        <div className="div-title-ul">
+          <p className="p-ul">Nome</p>
+          <p className="p-ul">Login</p>
+          <p className="p-ul">E-mail</p>
+          <p className="p-ul">Telefone</p>
+          <p className="p-ul">Status</p>
+          <p className="p-ul">Ações</p>
+        </div>
+        {users.map((user) => (
+          <li key={user.id} onClick={() => handleSelectUser(user)}>
+            <p className="p-li">{user.name}</p>
+            <p className="p-li">{user.login}</p>
+            <p className="p-li">{user.email}</p>
+            <p className="p-li">{user.telephone}</p>
+            <p className="p-li">{user.status}</p>
+            <div className="div-actions">
+              <p className="p-actions">Ver</p>
+              <p className="p-actions">Edit</p>
+              <p className="p-actions">Del</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UserPage;
